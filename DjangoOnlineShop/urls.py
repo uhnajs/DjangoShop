@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from sklep import views
 from sklep.views import product_list, product_detail
 
@@ -26,3 +25,4 @@ urlpatterns = [
     path('products/', product_list, name='product-list'),
     path('products/<int:pk>/', product_detail, name='product-detail'),
 ]
+

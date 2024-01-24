@@ -24,7 +24,7 @@ class Product(models.Model):
     currency = models.CharField(max_length=3, default='PLN')
     available = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image_url = models.URLField(max_length=1024, blank=True, null=True)
+    image_url = models.URLField(max_length=200)
     size = models.CharField(max_length=2, choices=SIZE_CHOICES)  # Dodane pole rozmiaru
     stock = models.PositiveIntegerField(default=0)  # Dodane pole ilości na stanie
 

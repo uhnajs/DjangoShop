@@ -1,0 +1,55 @@
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Dostosuj odstęp między produktami */
+    justify-content: flex-start; /* Aby produkty zaczynały się od lewej strony */
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    margin-bottom: 16px;
+    width: calc(33.333% - 16px); /* Dla 3 kolumn */
+    text-align: center;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-details {
+    padding: 10px;
+}
+
+.product-name {
+    font-size: 1rem;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    color: #E6007E; /* Kolor ceny może być różowy */
+}
+
+.add-to-cart {
+    background-color: #E6007E !important;
+    color: white !important;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        width: calc(50% - 16px); /* Dla 2 kolumn na mniejszych ekranach */
+    }
+}
+
+@media (max-width: 480px) {
+    .product-card {
+        width: 100%; /* Pełna szerokość na bardzo małych urządzeniach */
+    }
+}

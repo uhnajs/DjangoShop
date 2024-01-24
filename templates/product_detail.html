@@ -1,20 +1,34 @@
+<!-- product_list.html -->
+
 {% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/product_list.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
     <h1>Lista Produktów</h1>
-    <ul>
+    <div class="d-flex flex-wrap">
         {% for product in products %}
-        <li>
-            <a href="{% url 'product-detail' product.pk %}">
-                {{ product.name }} - {{ product.price|floatformat:2 }} PLN
-            </a>
-            <!-- Miniaturka obrazka produktu -->
-            {% if product.image_url %}
-                <img src="{{ product.image_url }}" alt="{{ product.name }} Image" style="width:100px; height:auto;">
-            {% else %}
-                <p>Brak miniatury obrazka.</p>
-            {% endif %}
-        </li>
+            <div class="p-2">
+                <a href="{% url 'product-detail' product.pk %}" class="text-dark text-decoration-none">
+                    <!-- Miniaturka obrazka produktu -->
+                    {% if product.image_url %}
+                        <div class="product-image">
+                            <img src="{{ product.image_url }}" alt="{{ product.name }} Image" width="200" height="200" class="border border-dark">
+                        </div>
+                    {% else %}
+                        <p>Brak miniatury obrazka.</p>
+                    {% endif %}
+                    <div class="product-details">
+                        <h2 class="product-name">{{ product.name }}</h2>
+                        <p class="product-price">{{ product.price|floatformat:2 }} PLN</p>
+                    </div>
+                </a>
+                <button class="add-to-cart">Dodaj do koszyka</button>
+            </div>
         {% endfor %}
-    </ul>
-{% endblock %}
+    </div>
+{% endblock content %}
