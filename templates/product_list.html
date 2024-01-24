@@ -1,26 +1,22 @@
-<!-- shop/templates/shop/product_list.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista Produktów</title>
-</head>
-<body>
-    <h1>Lista Produktów</h1>
-    <ul>
-        {% for product in products %}
-        <li>
-            <a href="{% url 'product-detail' product.pk %}">
-                {{ product.name }} - {{ product.price|floatformat:2 }} PLN
-            </a>
-            <!-- Miniaturka obrazka produktu -->
-            {% if product.image_url %}
-                <img src="{{ product.image_url }}" alt="{{ product.name }} Image" style="width:100px; height:auto;">
-            {% else %}
-                <p>Brak miniatury obrazka.</p>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+<!-- product_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lista Produktów</h1>
+<ul>
+    {% for product in products %}
+    <li>
+        <a href="{% url 'product-detail' product.pk %}">
+            {{ product.name }} - {{ product.price|floatformat:2 }} PLN
+        </a>
+        <!-- Miniaturka obrazka produktu -->
+        {% if product.image_url %}
+            <img src="{{ product.image_url }}" alt="{{ product.name }} Image" style="width:100px; height:auto;">
+        {% else %}
+            <p>Brak miniatury obrazka.</p>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
