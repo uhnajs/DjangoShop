@@ -1,0 +1,41 @@
+.product-detail {
+    background: white;
+    border: 1px solid #ddd; /* Cienka, jasnoszara obramówka */
+    border-radius: 15px; /* Zaokrąglone rogi */
+    padding: 20px; /* Odstęp wewnętrzny */
+    margin: 40px auto; /* Odstęp od góry i dołu oraz automatyczne wycentrowanie */
+    max-width: 600px; /* Maksymalna szerokość ramki */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lekkie cieniowanie dookoła ramki */
+}
+
+.product-detail img {
+    max-width: 100%; /* Maksymalna szerokość obrazka */
+    height: auto; /* Wysokość auto, aby zachować proporcje */
+    border-radius: 15px; /* Zaokrąglone rogi dla obrazka */
+    margin-bottom: 20px; /* Odstęp od dolnej części obrazka */
+}
+
+.product-detail h2 {
+    text-align: center; /* Tytuł wyśrodkowany */
+    margin-bottom: 20px; /* Odstęp od tytułu */
+}
+
+.product-detail p {
+    text-align: center; /* Tekst wyśrodkowany */
+    margin-bottom: 10px; /* Odstęp od paragrafów */
+}
+
+.product-detail .price {
+    font-weight: bold;
+    margin-bottom: 20px; /* Odstęp od ceny */
+}
+
+.product-detail button {
+    background: #0046d5; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu przycisku */
+    padding: 10px 20px; /* Padding przycisku */
+    border: none; /* Brak obramówki przycisku */
+    border-radius: 5px; /* Zaokrąglone rogi przycisku */
+    cursor: pointer; /* Kursor wskazujący przycisk */
+    font-size: 1rem; /* Rozmiar tekstu przycisku */
+}

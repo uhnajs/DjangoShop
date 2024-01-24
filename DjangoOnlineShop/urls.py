@@ -24,5 +24,6 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('products/', product_list, name='product-list'),
     path('products/<int:pk>/', product_detail, name='product-detail'),
+
 ]
 

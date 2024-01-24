@@ -13,11 +13,6 @@
     overflow: hidden;
 }
 
-.product-image img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
 
 .product-details {
     padding: 10px;
@@ -52,4 +47,13 @@
     .product-card {
         width: 100%; /* Pełna szerokość na bardzo małych urządzeniach */
     }
+}
+
+
+.product-image img {
+    width: 100%; /* Możesz ustawić na mniejszy procent lub konkretną szerokość w pikselach */
+    max-width: 300px; /* Maksymalna szerokość obrazka */
+    height: auto; /* Wysokość automatycznie dostosuje się do szerokości zachowując proporcje */
+    object-fit: contain; /* Obrazek będzie skalowany w ramach elementu nie tracąc proporcji */
+    margin: 0 auto; /* Centruje obrazek w kontenerze jeśli jest mniejszy niż kontener */
 }
