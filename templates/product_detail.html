@@ -1,0 +1,22 @@
+<!-- shop/templates/shop/product_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <p>Cena: {{ product.price|floatformat:2 }} PLN</p>
+
+    <!-- Dodajemy obrazek produktu -->
+    {% if product.image_url %}
+        <img src="{{ product.image_url }}" alt="{{ product.name }} Image" style="max-width: 300px; height: auto;">
+    {% else %}
+        <p>Brak obrazka dla tego produktu.</p>
+    {% endif %}
+
+    <!-- Możesz dodać więcej szczegółów o produkcie tutaj -->
+</body>
+</html>
