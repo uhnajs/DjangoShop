@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Blog</h1>
+  <div class="blog-posts">
+    {% for post in posts %}
+      <div class="blog-post">
+        <h2>{{ post.title }}</h2>
+        <p>Opublikowano: {{ post.published_date }}</p>
+        {% if post.image_url %}
+          <img src="{{ post.image_url }}" alt="{{ post.title }}" style="max-width: 100%;">
+        {% endif %}
+        <div class="content">
+          {{ post.content | linebreaksbr }}
+        </div>
+      </div>
+    {% empty %}
+      <p>Brak postów do wyświetlenia.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,14 +1,14 @@
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px; /* Dostosuj odstęp między produktami */
-    justify-content: flex-start; /* Aby produkty zaczynały się od lewej strony */
+    gap: 16px;
+    justify-content: flex-start;
 }
 
 .product-card {
     border: 1px solid #ddd;
     margin-bottom: 16px;
-    width: calc(33.333% - 16px); /* Dla 3 kolumn */
+    width: calc(33.333% - 16px);
     text-align: center;
     overflow: hidden;
 }
@@ -24,7 +24,7 @@
 
 .product-price {
     font-size: 1.25rem;
-    color: #E6007E; /* Kolor ceny może być różowy */
+    color: #E6007E;
 }
 
 .add-to-cart {
@@ -39,21 +39,20 @@
 
 @media (max-width: 768px) {
     .product-card {
-        width: calc(50% - 16px); /* Dla 2 kolumn na mniejszych ekranach */
+        width: calc(50% - 16px);
     }
 }
 
 @media (max-width: 480px) {
     .product-card {
-        width: 100%; /* Pełna szerokość na bardzo małych urządzeniach */
+        width: 100%;
     }
 }
 
 
 .product-image img {
-    width: 100%; /* Możesz ustawić na mniejszy procent lub konkretną szerokość w pikselach */
-    max-width: 300px; /* Maksymalna szerokość obrazka */
-    height: auto; /* Wysokość automatycznie dostosuje się do szerokości zachowując proporcje */
-    object-fit: contain; /* Obrazek będzie skalowany w ramach elementu nie tracąc proporcji */
-    margin: 0 auto; /* Centruje obrazek w kontenerze jeśli jest mniejszy niż kontener */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }

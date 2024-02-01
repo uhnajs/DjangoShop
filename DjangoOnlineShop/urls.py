@@ -22,8 +22,11 @@ from sklep.views import product_list, product_detail
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='home'),
-    path('products/', product_list, name='product-list'),
-    path('products/<int:pk>/', product_detail, name='product-detail'),
+    path('products/', views.product_list, name='product-list'),
+    path('products/<int:pk>/', views.product_detail, name='product-detail'),
+    path('subscribe_to_newsletter/', views.subscribe_to_newsletter, name='subscribe_to_newsletter'),
+    path('blog/', views.blog, name='blog'),
+    path('about/', views.about, name='about-us'),
+    path('contact/', views.contact, name='contact'),
 
 ]
-
