@@ -10825,23 +10825,23 @@ textarea.form-control-lg {
 }
 
 
-/* Styles for Navbar */
-.nav-bar {
-  background: #e00d0d;
-  color: #fff;
-}
+/*!* Styles for Navbar *!*/
+/*.nav-bar {*/
+/*  background: #e00d0d;*/
+/*  color: #fff;*/
+/*}*/
 
-.navbar-brand {
-  font-size: 1.5rem;
-}
+/*.navbar-brand {*/
+/*  font-size: 1.5rem;*/
+/*}*/
 
-.navbar-dark .nav-link {
-  color: rgba(255, 255, 255, 0.8);
-}
+/*.navbar-dark .nav-link {*/
+/*  color: rgba(255, 255, 255, 0.8);*/
+/*}*/
 
-.navbar-dark .nav-link:hover {
-  color: rgba(255, 255, 255, 1);
-}
+/*.navbar-dark .nav-link:hover {*/
+/*  color: rgba(255, 255, 255, 1);*/
+/*}*/
 
 /* Styles for Cart Button */
 .btn-outline-light {
@@ -10860,4 +10860,234 @@ textarea.form-control-lg {
 }
 
 
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+}
 
+.product-card {
+    border: 1px solid #ddd;
+    margin-bottom: 16px;
+    width: calc(33.333% - 16px);
+    text-align: center;
+    overflow: hidden;
+}
+
+
+.product-details {
+    padding: 10px;
+}
+
+.product-name {
+    font-size: 1rem;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    color: #E6007E;
+}
+
+.add-to-cart {
+    background-color: #E6007E !important;
+    color: white !important;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        width: calc(50% - 16px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-card {
+        width: 100%;
+    }
+}
+
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.product-detail {
+    background: white;
+    border: 1px solid #ddd; /* Cienka, jasnoszara obramówka */
+    border-radius: 15px; /* Zaokrąglone rogi */
+    padding: 20px; /* Odstęp wewnętrzny */
+    margin: 40px auto; /* Odstęp od góry i dołu oraz automatyczne wycentrowanie */
+    max-width: 600px; /* Maksymalna szerokość ramki */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lekkie cieniowanie dookoła ramki */
+}
+
+.product-detail img {
+    max-width: 100%; /* Maksymalna szerokość obrazka */
+    height: auto; /* Wysokość auto, aby zachować proporcje */
+    border-radius: 15px; /* Zaokrąglone rogi dla obrazka */
+    margin-bottom: 20px; /* Odstęp od dolnej części obrazka */
+}
+
+.product-detail h2 {
+    text-align: center; /* Tytuł wyśrodkowany */
+    margin-bottom: 20px; /* Odstęp od tytułu */
+}
+
+.product-detail p {
+    text-align: center; /* Tekst wyśrodkowany */
+    margin-bottom: 10px; /* Odstęp od paragrafów */
+}
+
+.product-detail .price {
+    font-weight: bold;
+    margin-bottom: 20px; /* Odstęp od ceny */
+}
+
+.product-detail button {
+    background: #0046d5; /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu przycisku */
+    padding: 10px 20px; /* Padding przycisku */
+    border: none; /* Brak obramówki przycisku */
+    border-radius: 5px; /* Zaokrąglone rogi przycisku */
+    cursor: pointer; /* Kursor wskazujący przycisk */
+    font-size: 1rem; /* Rozmiar tekstu przycisku */
+}
+
+/* Style for navigation bar */
+.navbar {
+  background-color: #2e2e2e; /* Dark, sophisticated background */
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #4b4b4b; /* Subtle border for a sharp look */
+}
+
+.navbar-brand {
+  color: #f2f2f2; /* Light color for brand name for contrast */
+  font-size: 1.6em;
+  font-weight: bold; /* Making the brand name stand out */
+}
+
+.nav-link {
+  color: #c0c0c0; /* Soft white for navigation links */
+  font-weight: 500; /* Slightly bold for better readability */
+}
+
+.nav-link:hover {
+  color: #f2f2f2; /* Brighter color on hover for emphasis */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.navbar .btn {
+  background-color: #5c687c; /* Stylish, muted blue */
+  border-color: #4e5566;
+  color: #ffffff;
+}
+
+.navbar .btn:hover {
+  background-color: #4e5566; /* Slightly darker shade on hover */
+  border-color: #3d4452;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Header Styles */
+header {
+  background-color: #2e2e2e;
+  color: #ffffff;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 1.8em;
+}
+
+header h1 {
+  font-weight: 700; /* Bold font for heading */
+  margin-bottom: 10px;
+}
+
+header h1 span {
+  border-bottom: 2px solid #4b4b4b; /* Elegant underline for emphasis */
+}
+
+header a {
+  color: #c0c0c0;
+  text-decoration: none;
+}
+
+header a:hover {
+  color: #f2f2f2;
+  text-decoration: none;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #2e2e2e;
+  color: #ffffff;
+  padding: 25px 0;
+  font-size: 1.0em;
+  text-align: center;
+}
+
+footer a {
+  color: #c0c0c0;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #f2f2f2;
+  text-decoration: none;
+}
+
+.footer form .form-control {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #5c687c;
+}
+
+.btn-primary:hover {
+  background-color: #4e5566;
+}
+
+/* Adjustments for a more modern, sleek look */
+body {
+  font-family: 'Arial', sans-serif; /* Modern and clean font */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica Neue', sans-serif; /* Stylish font for headings */
+}
+
+
+.carousel {
+  margin-top: 20px; /* Dodaje odstęp od górnego menu */
+}
+
+.carousel-inner img {
+  width: 100%; /* Zapewnia, że obrazy są responsywne i rozciągają się na całą szerokość */
+  height: 400px; /* Ustawia wysokość karuzeli; dostosuj zgodnie z potrzebami */
+  object-fit: cover; /* Zapewnia, że obrazy nie są rozciągnięte, ale przycinane i pokrywają kontener */
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5); /* Dodaje półprzezroczyste tło do napisów dla lepszej widoczności */
+  padding: 10px; /* Dodaje odstęp wewnątrz napisów */
+  border-radius: 5px; /* Zaokrągla rogi napisów */
+}
+
+.carousel-indicators li {
+  background-color: #fff; /* Zmienia kolor wskaźników na biały */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%); /* Zmienia kolor strzałek na biały */
+}

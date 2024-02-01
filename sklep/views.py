@@ -5,11 +5,16 @@ from sklep.models import Product
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
+from django.db.models import Count
+from random import randint
+from .models import Product
 
 
 class HomeView(View):
     def get(self, request):
         return render(request, 'index.html')
+
+
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'product_list.html', {'products': products})
