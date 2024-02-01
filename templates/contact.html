@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="contact-section">
+  <div class="container">
+    <h2 class="contact-section-title">Skontaktuj się z nami</h2>
+    <div class="row">
+      <div class="col-md-6 contact-form-container">
+        <h3>Formularz kontaktowy</h3>
+        <form action="{% url 'send_contact_form' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="email">Twój adres e-mail:</label>
+            <input type="email" id="email" name="email" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="subject">Temat:</label>
+            <input type="text" id="subject" name="subject" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="message">Wiadomość:</label>
+            <textarea id="message" name="message" required class="form-control" rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+      </div>
+      <div class="col-md-6 contact-info-container">
+        <h3>Informacje kontaktowe</h3>
+        <p><strong>Adres:</strong> ul. Modowa 123, 00-000 Modowo</p>
+        <p><strong>Telefon:</strong> +48 123 456 789</p>
+        <p><strong>E-mail:</strong> kontakt@markot.pl</p>
+        <p><strong>Godziny pracy:</strong> Pon - Pt: 9:00 - 17:00</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

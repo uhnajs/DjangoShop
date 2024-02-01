@@ -55,3 +55,22 @@ def about(request):
 def contact(request):
     # Twoja logika dla strony kontaktowej
     return render(request, 'contact.html')
+
+def send_contact_form(request):
+    if request.method == 'POST':
+        subject = request.POST.get('subject', '')
+        message = request.POST.get('message', '')
+        sender = request.POST.get('email', '')
+
+        # Tutaj możesz dodać logikę walidacji danych formularza
+
+        # Wysyłanie wiadomości e-mail
+        send_mail(subject, message, sender, [settings.EMAIL_HOST_USER])
+
+        # Dodanie komunikatu o sukcesie
+        messages.success(request, 'Twoja wiadomość została wysłana.')
+
+        return redirect('kontakt')
+    else:
+        # Jeśli metoda to nie POST, wyświetl formularz
+        return render(request, 'contact.html')

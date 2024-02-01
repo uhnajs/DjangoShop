@@ -28,5 +28,6 @@ urlpatterns = [
     path('blog/', views.blog, name='blog'),
     path('about/', views.about, name='about-us'),
     path('contact/', views.contact, name='contact'),
+    path('send-contact-form/', views.send_contact_form, name='send_contact_form'),
 
 ]
