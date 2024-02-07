@@ -11066,28 +11066,46 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Helvetica Neue', sans-serif; /* Stylish font for headings */
 }
 
-
-.carousel {
-  margin-top: 20px; /* Dodaje odstęp od górnego menu */
+.carousel-item {
+    height: 65vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-.carousel-inner img {
-  width: 100%; /* Zapewnia, że obrazy są responsywne i rozciągają się na całą szerokość */
-  height: 400px; /* Ustawia wysokość karuzeli; dostosuj zgodnie z potrzebami */
-  object-fit: cover; /* Zapewnia, że obrazy nie są rozciągnięte, ale przycinane i pokrywają kontener */
-}
-
-.carousel-caption {
-  background: rgba(0, 0, 0, 0.5); /* Dodaje półprzezroczyste tło do napisów dla lepszej widoczności */
-  padding: 10px; /* Dodaje odstęp wewnątrz napisów */
-  border-radius: 5px; /* Zaokrągla rogi napisów */
-}
-
-.carousel-indicators li {
-  background-color: #fff; /* Zmienia kolor wskaźników na biały */
+.carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 65vh;
+    object-fit: cover;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(100%); /* Zmienia kolor strzałek na biały */
+    height: 50px;
+    width: 50px;
+    outline: black;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-image: none;
 }
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: red;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: red;
+}
+

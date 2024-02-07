@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from sklep import views
-from sklep.views import product_list, product_detail
+from sklep.views import terms , PrivacyView, FAQView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +29,8 @@ urlpatterns = [
     path('about/', views.about, name='about-us'),
     path('contact/', views.contact, name='contact'),
     path('send-contact-form/', views.send_contact_form, name='send_contact_form'),
+    path('terms/', terms, name='terms'),
+    path('privacy/', PrivacyView.as_view(), name='privacy'),
+    path('faq/', FAQView.as_view(), name='faq'),
 
 ]

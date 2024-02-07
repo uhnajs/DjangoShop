@@ -6,14 +6,21 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import Count
-from random import randint
+import random
 from .models import Product
+from django.views.generic import TemplateView
 
 
-class HomeView(View):
-    def get(self, request):
-        return render(request, 'index.html')
+class HomeView(TemplateView):
+    template_name = 'index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = list(Product.objects.all())
+        random.shuffle(products)
+        products = products[:3]
+        context['products'] = products
+        return context
 
 def product_list(request):
     products = Product.objects.all()
@@ -79,3 +86,17 @@ def send_contact_form(request):
     else:
         # Jeśli metoda to nie POST, wyświetl formularz
         return render(request, 'contact.html')
+
+
+def terms(request):
+    """
+    Render the terms and conditions page
+    """
+    return render(request, 'terms.html')
+
+
+class PrivacyView(TemplateView):
+    template_name = "privacy.html"
+
+class FAQView(TemplateView):
+    template_name = "faq.html"

@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block content %}
-<!-- Karuzela produktów -->
-
-<!-- Sekcja "O Sklepie" -->
-<div class="about-section py-5">
-    <div class="container">
-        <h2 class="text-center">O Sklepie Markot</h2>
-        <p class="text-center">
-            Markot to miejsce, gdzie pasja do mody spotyka się z wyjątkowym stylem. Odkryj nasze kolekcje, które łączą w sobie klasyczne kroje z nowoczesnymi trendami. Z nami każdy dzień stanie się okazją, by poczuć się wyjątkowo.
-        </p>
+<div style="display: flex; justify-content: center; align-items: center; padding: 50px 0;">
+  <!-- Bootstrap Carousel -->
+  <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" style="width: 80%; max-width: 1000px;">
+    <div class="carousel-inner">
+      {% for product in products %}
+        <div class="carousel-item{% if forloop.first %} active{% endif %}">
+          <img src="{{ product.image_url }}" class="d-block w-100" alt="{{ product.name }}">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{ product.name }}</h5>
+            <p>Cena: {{ product.price }} {{ product.currency }}</p>
+          </div>
+        </div>
+      {% endfor %}
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </div>
 {% endblock %}
