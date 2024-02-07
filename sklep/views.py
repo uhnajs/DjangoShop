@@ -100,3 +100,14 @@ class PrivacyView(TemplateView):
 
 class FAQView(TemplateView):
     template_name = "faq.html"
+
+def search_results(request):
+    query = request.GET.get('q')
+    products = Product.objects.none()  # Returns an empty QuerySet
+
+    if query:
+        query = query.strip()  # Removes leading/trailing white space
+        if query:  # Checking if the query is not an empty string
+            products = Product.objects.filter(name__icontains=query)
+
+    return render(request, 'search_results.html', {'products': products, 'query': query})

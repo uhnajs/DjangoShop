@@ -32,5 +32,6 @@ urlpatterns = [
     path('terms/', terms, name='terms'),
     path('privacy/', PrivacyView.as_view(), name='privacy'),
     path('faq/', FAQView.as_view(), name='faq'),
+    path('search/', views.search_results, name='search_results'),
 
 ]

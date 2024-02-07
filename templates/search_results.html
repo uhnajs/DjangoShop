@@ -1,0 +1,22 @@
+<!-- search_results.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Wyniki wyszukiwania dla: "{{ query }}"</h2>
+<div class="row">
+    {% for product in products %}
+        <!-- Wyświetl informacje o produkcie -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img class="card-img-top" src="{{ product.image_url }}" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'product-detail' product.id %}">{{ product.name }}</a></h5>
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Brak wyników dla zadanego zapytania.</p>
+    {% endfor %}
+</div>
+{% endblock %}
