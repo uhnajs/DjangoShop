@@ -77,15 +77,12 @@ def send_contact_form(request):
         sender = request.POST.get('email', '')
         send_mail(subject, message, sender, [settings.EMAIL_HOST_USER])
         messages.success(request, 'Twoja wiadomość została wysłana.')
-        return redirect('kontakt')
+        return redirect('contact')
     else:
         return render(request, 'contact.html')
 
 
 def terms(request):
-    """
-    Render the terms and conditions page
-    """
     return render(request, 'terms.html')
 
 
