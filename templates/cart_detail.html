@@ -6,12 +6,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Size</th>
-                    <th>Total</th>
+                    <th>Produkt</th>
+                    <th>Nazwa</th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Rozmiar</th>
+                    <th>Łącznie</th>
                     <th></th>
                 </tr>
             </thead>
@@ -22,19 +22,22 @@
                         <td>{{ product.name }}</td>
                         <td>{{ product.price }}</td>
                         <td>{{ product.quantity }}</td>
-                        <td>{{ product.size }}</td> 
+                        <td>{{ product.size }}</td>
                         <td>{{ product.total_price }}</td>
-                        <td><a href="{% url 'remove_from_cart' product.id product.size %}" class="btn btn-danger btn-sm">Remove</a></td>
+                        <td><a href="{% url 'remove_from_cart' product.id product.size %}" class="btn btn-danger btn-sm">Usuń</a></td>
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td colspan="4" class="text-right"><strong>Total Price</strong></td>
+                    <td colspan="5" class="text-right"><strong>Suma:</strong></td>
                     <td colspan="2">{{ cart_total }}</td>
-                    <a href="{% url 'payment' %}" class="btn btn-primary">Proceed to Payment</a>
                 </tr>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <a href="{% url 'payment' %}" class="btn btn-primary">Zapłać</a>
+                    </tr>
             </tbody>
         </table>
     {% else %}
-        <p>Your cart is empty.</p>
+        <p>Twój koszyk jest pusty.</p>
     {% endif %}
 {% endblock content %}

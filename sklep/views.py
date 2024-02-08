@@ -62,15 +62,12 @@ def add_subscriber_to_getresponse(email):
     return response
 
 def blog(request):
-    # Twoja logika dla bloga
     return render(request, 'blog.html')
 
 def about(request):
-    # Twoja logika dla strony O nas
     return render(request, 'about.html')
 
 def contact(request):
-    # Twoja logika dla strony kontaktowej
     return render(request, 'contact.html')
 
 def send_contact_form(request):
@@ -78,9 +75,6 @@ def send_contact_form(request):
         subject = request.POST.get('subject', '')
         message = request.POST.get('message', '')
         sender = request.POST.get('email', '')
-
-        # Tutaj możesz dodać logikę walidacji danych formularza
-
         # Wysyłanie wiadomości e-mail
         send_mail(subject, message, sender, [settings.EMAIL_HOST_USER])
 
@@ -89,7 +83,6 @@ def send_contact_form(request):
 
         return redirect('kontakt')
     else:
-        # Jeśli metoda to nie POST, wyświetl formularz
         return render(request, 'contact.html')
 
 
@@ -108,11 +101,11 @@ class FAQView(TemplateView):
 
 def search_results(request):
     query = request.GET.get('q')
-    products = Product.objects.none()  # Returns an empty QuerySet
+    products = Product.objects.none()
 
     if query:
-        query = query.strip()  # Removes leading/trailing white space
-        if query:  # Checking if the query is not an empty string
+        query = query.strip()
+        if query:
             products = Product.objects.filter(name__icontains=query)
 
     return render(request, 'search_results.html', {'products': products, 'query': query})
@@ -156,9 +149,9 @@ def cart_detail(request):
     return render(request, 'cart_detail.html', {'cart': cart, 'cart_total': cart_total})
 
 @login_required(login_url='login')
-def remove_from_cart(request, product_id, size):  # Dodano argument rozmiaru
+def remove_from_cart(request, product_id, size):
     """Usuń produkt z koszyka."""
-    remove(request, product_id, size)  # Przekazano rozmiar do funkcji remove
+    remove(request, product_id, size)
     return redirect('cart_detail')
 @login_required(login_url='login')
 def payment(request):

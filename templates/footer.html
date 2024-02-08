@@ -1,61 +1,8 @@
-{#<!DOCTYPE html>#}
-{#<html>#}
-{#<head>#}
-{#    <!-- Add the link to the Font Awesome library in the head section of your HTML document. -->#}
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">#}
-{#</head>#}
-{#<body>#}
-{#    <footer class="footer bg-dark py-5">#}
-{#        <div class="container">#}
-{#            <!-- Newsletter Signup Form -->#}
-{#            <div class="newsletter-signup mb-4">#}
-{#                <h3 class="text-white">Zapisz się do naszego newslettera</h3>#}
-{#                <form action="/subscribe_to_newsletter/" method="post">#}
-{#                    {% csrf_token %}#}
-{#                    <input type="email" name="email" placeholder="Twój adres email" required class="form-control" #}
-{#                        style="max-width: 500px; margin-bottom: 10px;">#}
-{#                    <button type="submit" class="btn btn-primary">Zapisz się</button>#}
-{#                </form>#}
-{#            </div>#}
-{#            <!-- Quick Links -->#}
-{#            <div class="row">#}
-{#                <div class="col-md-4">#}
-{#                    <ul class="list-unstyled">#}
-{#                        <li><a href="/products" class="text-white">Produkty</a></li>#}
-{#                        <li><a href="/about" class="text-white">O nas</a></li>#}
-{#                        <li><a href="/contact" class="text-white">Kontakt</a></li>#}
-{#                        <li><a href="/faq" class="text-white">FAQ</a></li>#}
-{#                    </ul>#}
-{#                </div>#}
-{#                <div class="col-md-4">#}
-{#                    <ul class="list-unstyled">#}
-{#                        <li><a href="/terms" class="text-white">Warunki korzystania</a></li>#}
-{#                        <li><a href="/privacy" class="text-white">Polityka prywatności</a></li>#}
-{#                    </ul>#}
-{#                </div>#}
-{#                <div class="col-md-4">#}
-{#                    <h5 class="text-white">Śledź nas</h5>#}
-{#                    <a href="#" class="text-white"><i class="fab fa-facebook-f"></i> Facebook</a><br>#}
-{#                    <a href="#" class="text-white"><i class="fab fa-twitter"></i> Twitter</a><br>#}
-{#                    <a href="#" class="text-white"><i class="fab fa-instagram"></i> Instagram</a>#}
-{#                </div>#}
-{#            </div>#}
-{#            <!-- Legal and Partner Info -->#}
-{#            <div class="mt-4">#}
-{#                <p class="text-white">© 2024 Markot. Wszelkie prawa zastrzeżone.</p>#}
-{#            </div>#}
-{#        </div>#}
-{#    </footer>#}
-{#</body>#}
-{#</html>#}
-
-
 {% load static %}
 
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Add the link to the Font Awesome library in the head section of your HTML document. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
@@ -94,7 +41,7 @@
                     <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
                 </div>
             </div>
-            <!-- Legal and Partner Info -->
+            <!--Copyright -->
             <div class="mt-4">
                 <p>© 2024 Markot. Wszelkie prawa zastrzeżone.</p>
             </div>
