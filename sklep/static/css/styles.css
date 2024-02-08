@@ -11066,4 +11066,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Helvetica Neue', sans-serif; /* Stylish font for headings */
 }
 
+.custom-auth-links {
+    color: black;
+    text-decoration: none;
+}
 
+.custom-auth-links:hover {
+    color: white;
+    background-color: black;
+}

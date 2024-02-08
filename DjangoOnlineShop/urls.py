@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from sklep import views
 from sklep.views import terms , PrivacyView, FAQView
+from accounts.views import register, user_login , log_out
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +36,8 @@ urlpatterns = [
     path('privacy/', PrivacyView.as_view(), name='privacy'),
     path('faq/', FAQView.as_view(), name='faq'),
     path('search/', views.search_results, name='search_results'),
+    path('register/', register, name='register'),
+    path('login/', user_login, name='login'),
+    path('logout/', log_out, name='logout'),
 
 ]
