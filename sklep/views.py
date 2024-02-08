@@ -75,12 +75,8 @@ def send_contact_form(request):
         subject = request.POST.get('subject', '')
         message = request.POST.get('message', '')
         sender = request.POST.get('email', '')
-        # Wysyłanie wiadomości e-mail
         send_mail(subject, message, sender, [settings.EMAIL_HOST_USER])
-
-        # Dodanie komunikatu o sukcesie
         messages.success(request, 'Twoja wiadomość została wysłana.')
-
         return redirect('kontakt')
     else:
         return render(request, 'contact.html')
