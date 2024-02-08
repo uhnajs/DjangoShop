@@ -46,11 +46,11 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Kontakt</a></li>
             </ul>
 
-            <form class="d-flex">
+            <form action="{% url 'cart_detail' %}" method="get" class="d-flex">
                 <button class="btn" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Koszyk
-                    <span class="badge ms-1 rounded-pill">0</span>
+                    <span class="badge ms-1 rounded-pill">{% if 'cart' in request.session %}{{ request.session.cart|length }}{% else %}0{% endif %}</span>
                 </button>
             </form>
         </div>

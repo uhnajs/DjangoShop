@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Twój koszyk</h1>
+    {% if cart %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in cart %}
+                    <tr>
+                        <td><img src="{{ product.image_url }}" alt="{{ product.name }}" width="80"></td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.total_price }}</td>
+                        <td><a href="{% url 'remove_from_cart' product.id %}" class="btn btn-danger btn-sm">Remove</a></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4" class="text-right"><strong>Total Price</strong></td>
+                    <td colspan="2">{{ cart_total }}</td>
+                    <a href="{% url 'payment' %}" class="btn btn-primary">Proceed to Payment</a>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+{% endblock content %}

@@ -7,7 +7,7 @@
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            {{ form.content.label_tag }} {{ form.content }}
+            {{ form.content }}
         </div>
         <button type="submit" class="btn btn-primary">Dodaj recenzję</button>
     </form>

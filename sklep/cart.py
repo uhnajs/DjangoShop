@@ -1,74 +1,65 @@
-# shop/cart.py
-from decimal import Decimal
-from models import Product
-class Cart(object):
-    def __init__(self, request):
-        """
-        Inicjalizacja koszyka
-        """
-        self.session = request.session
-        cart = self.session.get('cart')
-        if not cart:
-            # Zapisz pusty koszyk w sesji
-            cart = self.session['cart'] = {}
-        self.cart = cart
+from django.shortcuts import get_object_or_404
 
-    def add(self, product, quantity=1, update_quantity=False):
-        """
-        Dodaj produkt do koszyka lub zaktualizuj jego ilość.
-        """
-        product_id = str(product.id)
-        if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0,
-                                      'price': str(product.price)}
-        if update_quantity:
-            self.cart[product_id]['quantity'] = quantity
-        else:
-            self.cart[product_id]['quantity'] += quantity
-        self.save()
+from sklep.models import Product
 
-    def save(self):
-        self.session.modified = True
 
-    def remove(self, product):
-        """
-        Usuń produkt z koszyka.
-        """
-        product_id = str(product.id)
-        if product_id in self.cart:
-            del self.cart[product_id]
-            self.save()
+def add(request, product_id, quantity=1, update_quantity=False):
+    """
+    Dodaj produkt do koszyka lub zaktualizuj jego ilość.
+    """
+    product = get_object_or_404(Product, id=product_id)
+    cart = request.session.get('cart', {})
 
-    def __iter__(self):
-        """
-        Iteruj przez elementy w koszyku i pobierz produkty z bazy danych.
-        """
-        product_ids = self.cart.keys()
-        # Pobierz obiekty produktu i dodaj je do koszyka
-        products = Product.objects.filter(id__in=product_ids)
+    # Konwersja product_id na string
+    product_id = str(product_id)
 
-        cart = self.cart.copy()
-        for product in products:
-            cart[str(product.id)]['product'] = product
+    if product_id in cart and not update_quantity:
+        cart[product_id]['quantity'] += quantity
+    else:
+        cart[product_id] = {'quantity': quantity, 'price': str(product.price)}
 
-        for item in cart.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
-            yield item
+    request.session['cart'] = cart
 
-    def __len__(self):
-        """
-        Liczba wszystkich elementów w koszyku.
-        """
-        return sum(item['quantity'] for item in self.cart.values())
 
-    def get_total_price(self):
-        """
-        Oblicz całkowity koszt elementów w koszyku.
-        """
-        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+def remove(request, product_id):
+    """
+    Usuń produkt z koszyka.
+    """
+    cart = request.session.get('cart', {})
 
-    def clear(self):
-        # Usuń koszyk z sesji
-        del self.session['cart']
-        self.save()
+    # Konwersja product_id na string
+    product_id = str(product_id)
+
+    if product_id in cart:
+        del cart[product_id]
+
+    request.session['cart'] = cart
+
+
+def iterate(request):
+    """
+    Iteruj przez elementy koszyka i pobierz produkty
+    z bazy danych.
+    """
+    cart = request.session.get('cart', {})
+    products = []
+
+    for product_id in cart.keys():
+        product = get_object_or_404(Product, id=product_id)
+        product.quantity = cart[product_id]['quantity']
+        products.append(product)
+
+    return products
+
+
+def cart_total_price(request):
+    """
+    Oblicz całkowitą cenę koszyka.
+    """
+    cart = request.session.get('cart', {})
+    total_price = 0
+
+    for product_id, product_info in cart.items():
+        total_price += int(product_info['quantity']) * float(product_info['price'])
+
+    return total_price

@@ -25,7 +25,11 @@
                         </div>
                     </a>
                     <div class="card-footer">
-                        <button class="btn btn-primary">Dodaj do koszyka</button>
+                        <form method="post" action="{% url 'add_to_cart' product.pk %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="redirect" value="product-list">
+                            <input type="submit" class="btn btn-primary" value="Dodaj do koszyka">
+                        </form>
                     </div>
                 </div>
             </div>

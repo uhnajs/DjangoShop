@@ -40,5 +40,9 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('logout/', log_out, name='logout'),
     path('product/<int:product_id>/add_review/', views.add_review, name='add_review'),
+    path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart/', views.cart_detail, name='cart_detail'),
+    path('cart/remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('payment/', views.payment, name='payment'),
 
 ]

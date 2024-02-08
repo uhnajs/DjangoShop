@@ -134,6 +134,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GETRESPONSE_API_KEY = os.environ.get('GETRESPONSE_API_KEY')
 
 
+LOGIN_URL = 'login.html'
+
+
 
 
 

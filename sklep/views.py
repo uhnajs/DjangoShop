@@ -1,4 +1,5 @@
 import requests
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
 from sklep.models import Product
@@ -11,6 +12,8 @@ from .models import Product
 from django.views.generic import TemplateView
 from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
+from .cart import add, remove, iterate, cart_total_price
+from django.urls import reverse
 
 
 class HomeView(TemplateView):
@@ -132,3 +135,35 @@ def add_review(request, product_id):
         form = ReviewForm()
 
     return render(request, 'add_review.html', {'form': form})
+
+@login_required(login_url='login')
+def add_to_cart(request, product_id):
+    """Dodaj produkt do koszyka."""
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            add(request, product_id)
+            redirect_page = request.POST.get('redirect')
+            if redirect_page == 'product-list':
+                return HttpResponseRedirect(reverse('product-list'))
+            else:
+                return HttpResponseRedirect(reverse('product-detail', args=[product_id]))
+        else:
+            messages.info(request, "Aby dodać do koszyka musisz być zalogowany.")
+            return redirect('login')
+    return HttpResponseRedirect(reverse('product-list'))
+
+@login_required(login_url='login')
+def cart_detail(request):
+    cart = iterate(request)  # Pobierz listę produktów w koszyku
+    cart_total = cart_total_price(request)
+    return render(request, 'cart_detail.html', {'cart': cart, 'cart_total': cart_total})
+
+@login_required(login_url='login')
+def remove_from_cart(request, product_id):
+    """Usuń produkt z koszyka."""
+    remove(request, product_id)
+    return redirect('cart_detail')
+
+@login_required(login_url='login')
+def payment(request):
+    return render(request, 'payment.html')
