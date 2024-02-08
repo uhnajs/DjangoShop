@@ -162,4 +162,11 @@ def remove_from_cart(request, product_id, size):  # Dodano argument rozmiaru
     return redirect('cart_detail')
 @login_required(login_url='login')
 def payment(request):
-    return render(request, 'payment.html')
+    cart = iterate(request)  # Pobranie listy produktów w koszyku
+    cart_total = cart_total_price(request)
+
+    # Obliczanie całkowitej kwoty dla każdego produktu
+    for product in cart:
+        product.total = float(product.price) * int(product.quantity)
+
+    return render(request, 'payment.html', {'cart': cart, 'cart_total': cart_total})

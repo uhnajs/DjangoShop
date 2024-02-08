@@ -1,15 +1,36 @@
 {% extends 'base.html' %}
 
-{% block title %}Payment{% endblock title %}
+{% block title %}Płatność{% endblock title %}
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Payment Options</h2>
-    <p>You can make a payment by bank transfer to the following account:</p>
-    <ul>
-        <li>Account number: [account number]</li>
-        <li>Account title: [account title]</li>
-    </ul>
-    <!-- You can add more content here as needed -->
+    <h2>Podsumowanie zamówienia</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazwa produktu</th>
+                <th>Cena</th>
+                <th>Rozmiar</th>
+                <th>Ilość</th>
+                <th>Łącznie</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in cart %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.size }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.total }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" class="text-right">Całkowita kwota:</td>
+                <td>{{ cart_total }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="https://secure.przelewy24.pl/index.php" class="btn btn-primary">Zapłać</a>
 </div>
 {% endblock content %}
