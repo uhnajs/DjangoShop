@@ -9,6 +9,8 @@ from django.db.models import Count
 import random
 from .models import Product
 from django.views.generic import TemplateView
+from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
 
 
 class HomeView(TemplateView):
@@ -111,3 +113,22 @@ def search_results(request):
             products = Product.objects.filter(name__icontains=query)
 
     return render(request, 'search_results.html', {'products': products, 'query': query})
+
+
+@login_required
+def add_review(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.author = request.user
+            review.save()
+            return redirect('product_detail', pk=product.pk)
+
+    else:
+        form = ReviewForm()
+
+    return render(request, 'add_review.html', {'form': form})

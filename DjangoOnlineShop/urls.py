@@ -39,5 +39,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
     path('logout/', log_out, name='logout'),
+    path('product/<int:product_id>/add_review/', views.add_review, name='add_review'),
 
 ]
