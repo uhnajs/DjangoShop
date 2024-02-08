@@ -1,41 +1,45 @@
 from django.shortcuts import get_object_or_404
-
+from time import time
 from sklep.models import Product
 
 
 def add(request, product_id, quantity=1, update_quantity=False):
     """
-    Dodaj produkt do koszyka lub zaktualizuj jego ilość.
+    Dodaj produkt do kubełka lub zaktualizuj jego ilość.
     """
     product = get_object_or_404(Product, id=product_id)
+    size = request.POST.get('size')  # Pamiętaj o wczytaniu rozmiaru
     cart = request.session.get('cart', {})
 
-    # Konwersja product_id na string
-    product_id = str(product_id)
+    # Konwertuj product_id to string i dodaj informacje o czasie
+    product_key = f'{str(product_id)}-{str(int(time()))}'
 
-    if product_id in cart and not update_quantity:
-        cart[product_id]['quantity'] += quantity
+    if update_quantity:
+        # Możesz zdecydować, co zrobić, gdy chcesz zaktualizować ilość
+        pass
     else:
-        cart[product_id] = {'quantity': quantity, 'price': str(product.price)}
+        cart[product_key] = {'quantity': quantity, 'price': str(product.price), 'size': size}
 
     request.session['cart'] = cart
 
 
-def remove(request, product_id):
+def remove(request, product_id, size):
     """
     Usuń produkt z koszyka.
     """
     cart = request.session.get('cart', {})
 
-    # Konwersja product_id na string
-    product_id = str(product_id)
+    # Szukaj w kluczach koszyka odpowiedniego product_id i rozmiar
+    for product_key in list(
+            cart.keys()):  # Tworzymy kopię listy kluczy, aby móc bezpiecznie modyfikować słownik podczas iteracji
+        key_product_id, _ = product_key.split('-')
 
-    if product_id in cart:
-        del cart[product_id]
+        if str(product_id) == key_product_id and str(size) == cart[product_key]['size']:
+            # Jeżeli znaleziono klucz o pasującym product_id i rozmiarze, usuń go
+            del cart[product_key]
+            break  # Przerwij pętlę po usunięciu, aby nie usuwać innych produktów o tym samym ID i rozmiarze
 
     request.session['cart'] = cart
-
-
 def iterate(request):
     """
     Iteruj przez elementy koszyka i pobierz produkty
@@ -44,13 +48,16 @@ def iterate(request):
     cart = request.session.get('cart', {})
     products = []
 
-    for product_id in cart.keys():
+    for product_key in cart.keys():
+        # Wyodrębnij product_id i timestamp z product_key
+        product_id, _ = product_key.split('-')
         product = get_object_or_404(Product, id=product_id)
-        product.quantity = cart[product_id]['quantity']
+        # Dodaj rozmiar i ilość do obiektu produktu
+        product.size = cart[product_key]['size']
+        product.quantity = cart[product_key]['quantity']
         products.append(product)
 
     return products
-
 
 def cart_total_price(request):
     """

@@ -147,9 +147,6 @@ def add_to_cart(request, product_id):
                 return HttpResponseRedirect(reverse('product-list'))
             else:
                 return HttpResponseRedirect(reverse('product-detail', args=[product_id]))
-        else:
-            messages.info(request, "Aby dodać do koszyka musisz być zalogowany.")
-            return redirect('login')
     return HttpResponseRedirect(reverse('product-list'))
 
 @login_required(login_url='login')
@@ -159,11 +156,10 @@ def cart_detail(request):
     return render(request, 'cart_detail.html', {'cart': cart, 'cart_total': cart_total})
 
 @login_required(login_url='login')
-def remove_from_cart(request, product_id):
+def remove_from_cart(request, product_id, size):  # Dodano argument rozmiaru
     """Usuń produkt z koszyka."""
-    remove(request, product_id)
+    remove(request, product_id, size)  # Przekazano rozmiar do funkcji remove
     return redirect('cart_detail')
-
 @login_required(login_url='login')
 def payment(request):
     return render(request, 'payment.html')

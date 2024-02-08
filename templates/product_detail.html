@@ -3,62 +3,51 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="product-detail">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Product Card -->
-                <div class="card rounded mb-4 shadow">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <!-- Product Image -->
-                            {% if product.image_url %}
-                                <img src="{{ product.image_url }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+<div class="product-detail">
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Product Card -->
+            <div class="card rounded mb-4 shadow">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <!-- Product Image -->
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+                        {% else %}
+                            <p class="card-text p-3">Brak obrazka</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <!-- Product Info -->
+                        <div class="card-body">
+                            <h2 class="card-title">{{ product.name }}</h2>
+                            <!-- Product Description -->
+                            <p class="card-text">{{ product.description }}</p>
+                            <!-- Product Price -->
+                            <p class="card-text">Price: {{ product.price|floatformat:2 }} PLN</p>
+                            <!-- Add to Cart Button -->
+                            <form action="{% url 'add_to_cart' product.id %}" method="post">
+                                {% csrf_token %}
+                                <!-- Size Selection -->
+                                <div class="form-group">
+                                    <label for="size">Size</label>
+                                    <select class="form-control" id="size" name="size">
+                                        {% for size_code, size_name in product.SIZE_CHOICES %}
+                                            <option value="{{ size_code }}">{{ size_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <input type="submit" value="Add to Cart" class="btn btn-primary">
+                            </form>
+                            <!-- Add Review Button -->
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'add_review' product.id %}" class="btn btn-secondary mt-3">Add Review</a>
                             {% else %}
-                                <p class="card-text p-3">No Image Available</p>
+                                <p class="mt-3">Please log in to add a review.</p>
                             {% endif %}
-                        </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <!-- Product Info -->
-                            <div class="card-body">
-                                <h2 class="card-title">{{ product.name }}</h2>
-                                <!-- Product Description -->
-                                <p class="card-text">{{ product.description }}</p>
-                                <!-- Product Price -->
-                                <p class="card-text">Price: {{ product.price|floatformat:2 }} PLN</p>
-                            
-                                <!-- Add to Cart Button -->
-                                <form action="{% url 'add_to_cart' product.id %}" method="post">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Add to Cart" class="btn btn-primary">
-                                </form>
-                                <!-- Add Review Button -->
-                                {% if request.user.is_authenticated %}
-                                    <a href="{% url 'add_review' product.id %}" class="btn btn-secondary mt-3">Add Review</a>
-                                {% else %}
-                                    <p class="mt-3">Please log in to add a review.</p>
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Review list -->
-                <div class="mt-4">
-                    <h3>Reviews:</h3>
-                    {% for review in product.review_set.all %}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ review.author.username }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ review.date_added }}</h6>
-                                <p class="card-text">{{ review.content }}</p>
-                            </div>
-                        </div>
-                    {% empty %}
-                        <p>No reviews yet.</p>
-                    {% endfor %}
-                </div>
-
             </div>
         </div>
     </div>

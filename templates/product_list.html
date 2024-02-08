@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block content %}
-    <h1>Our Products</h1>
+    <h1>Nasze Produkty</h1>
     <div class="row justify-content-center">
         {% for product in products %}
             <div class="col-lg-3 col-md-4 mb-4">
@@ -28,7 +28,6 @@
                         <form method="post" action="{% url 'add_to_cart' product.pk %}">
                             {% csrf_token %}
                             <input type="hidden" name="redirect" value="product-list">
-                            <input type="submit" class="btn btn-primary" value="Dodaj do koszyka">
                         </form>
                     </div>
                 </div>
