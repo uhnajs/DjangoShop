@@ -227,7 +227,6 @@ def test_privacy_view_uses_correct_template():
 
 @pytest.mark.django_db
 def test_search_results_view_with_query():
-    # Tworzenie obiektów Category i Product do testowania
     category = Category.objects.create(name="Test Category")
     Product.objects.create(name="Test Product", price=9.99, category=category)
 
@@ -240,7 +239,6 @@ def test_search_results_view_with_query():
 
 @pytest.mark.django_db
 def test_search_results_view_without_query():
-    # Tworzenie obiektów Category i Product do testowania
     category = Category.objects.create(name="Test Category")
     Product.objects.create(name="Test Product", price=9.99, category=category)
 
@@ -347,3 +345,71 @@ def test_cart_detail_with_items():
     assert len(response.context['cart']) == 1
     assert response.context['cart'][0].id == product.id
     assert float(response.context['cart_total']) == 9.99
+
+
+@pytest.mark.django_db
+def test_remove_from_cart():
+    user = User.objects.create_user(username='testuser', password='12345')
+    category = Category.objects.create(name="Test Category")
+    product = Product.objects.create(name="Test Product", price=9.99, category=category, size='M')
+
+    client = Client()
+    client.login(username='testuser', password='12345')
+
+    session = client.session
+    session['cart'] = {f'{product.id}-M': {'quantity': 1, 'price': str(product.price), 'size': 'M'}}
+    session.save()
+
+    response_before_removal = client.get(reverse('cart_detail'))
+    assert len(response_before_removal.context['cart']) == 1
+
+    remove_response = client.get(reverse('remove_from_cart', kwargs={'product_id': product.id, 'size': 'M'}))
+
+    response_after_removal= client.get(reverse('cart_detail'))
+    assert len(response_after_removal.context['cart']) == 0
+
+
+@pytest.mark.django_db
+def test_remove_from_cart_redirect():
+    user = User.objects.create_user(username='testuser', password='12345')
+    category = Category.objects.create(name="Test Category")
+    product = Product.objects.create(name="Test Product", price=9.99, category=category, size='M')
+
+    client = Client()
+    client.login(username='testuser', password='12345')
+
+    session = client.session
+    session['cart'] = {f'{product.id}-M': {'quantity': 1, 'price': str(product.price), 'size': 'M'}}
+    session.save()
+
+    response = client.get(reverse('remove_from_cart', kwargs={'product_id': product.id, 'size': 'M'}))
+
+    assert response.status_code == 302
+    assert response.url == reverse('cart_detail')
+
+@pytest.mark.django_db
+def test_payment_page_loads():
+    user = User.objects.create_user(username='testuser', password='12345')
+    client = Client()
+    client.login(username='testuser', password='12345')
+    response = client.get(reverse('payment'))
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_payment_calculations():
+    user = User.objects.create_user(username='testuser', password='12345')
+    category = Category.objects.create(name="Test Category")
+    product = Product.objects.create(name="Test Product", price=9.99, category=category, size='M')
+
+    client = Client()
+    client.login(username='testuser', password='12345')
+
+    session = client.session
+    session['cart'] = {f'{product.id}-M': {'quantity': 3, 'price': str(product.price), 'size': 'M'}}
+    session.save()
+
+    response = client.get(reverse('payment'))
+
+    assert len(response.context['cart']) == 1
+    assert response.context['cart'][0].total == 29.97
+    assert float(response.context['cart_total']) == 29.97

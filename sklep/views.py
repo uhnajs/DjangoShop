@@ -156,3 +156,4 @@ def payment(request):
         product.total = float(product.price) * int(product.quantity)
 
     return render(request, 'payment.html', {'cart': cart, 'cart_total': cart_total})
+
