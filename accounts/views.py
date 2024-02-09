@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -19,6 +20,7 @@ def register(request):
             return render(request, "register.html", {"error": "Podane hasła są różne"})
     else:
         return render(request, "register.html")
+
 
 def user_login(request):
     if request.method == "POST":

@@ -2,18 +2,47 @@
 
 {% block content %}
   <h1>Blog</h1>
+
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Dodaj post</button>
+    </form>
+  {% endif %}
+
   <div class="blog-posts">
     {% for post in posts %}
       <div class="blog-post">
         <h2>{{ post.title }}</h2>
-        <p>Opublikowano: {{ post.published }}</p>
+        <p>Opublikowano: {{ post.published_date }}</p>
         <div class="content">
-          {{ post.summary | linebreaksbr }}
+          {{ post.content | linebreaksbr }}
         </div>
-        <a href="{{ post.link }}" target="_blank">Czytaj więcej</a>
+
+        {% if user.is_authenticated and user == post.author %}
+          <a href="{% url 'delete_post' post.id %}" class="delete-button">Usuń post</a>
+        {% endif %}
       </div>
     {% empty %}
       <p>Brak postów do wyświetlenia.</p>
     {% endfor %}
   </div>
+
+  <style>
+    .delete-button {
+      display: inline-block;
+      padding: 5px 15px;
+      color: #fff;
+      background-color: #ff443b;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-button:hover {
+      background-color: #c73225;
+    }
+  </style>
+
 {% endblock %}

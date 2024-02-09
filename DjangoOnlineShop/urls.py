@@ -17,9 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from sklep import views
-from sklep.views import terms , PrivacyView, FAQView
+from sklep.views import terms , PrivacyView, FAQView, blog, delete_post
 from accounts.views import register, user_login , log_out
-from django.contrib.auth import views as auth_views
+
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('products/<int:pk>/', views.product_detail, name='product-detail'),
     path('subscribe_to_newsletter/', views.subscribe_to_newsletter, name='subscribe_to_newsletter'),
     path('blog/', views.blog, name='blog'),
+    path('blog/delete/<int:post_id>/', delete_post, name='delete_post'),
     path('about/', views.about, name='about-us'),
     path('contact/', views.contact, name='contact'),
     path('send-contact-form/', views.send_contact_form, name='send_contact_form'),

@@ -5,9 +5,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 import random
-from .models import Product
+from .models import Product , BlogPost
 from django.views.generic import TemplateView
-from .forms import ReviewForm
+from .forms import ReviewForm, BlogPostForm
 from django.contrib.auth.decorators import login_required
 from .cart import add, remove, iterate, cart_total_price
 from django.urls import reverse
@@ -58,7 +58,24 @@ def add_subscriber_to_getresponse(email):
     return response
 
 def blog(request):
-    return render(request, 'blog.html')
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('blog')
+    else:
+        form = BlogPostForm()
+
+    posts = BlogPost.objects.all()
+    return render(request, 'blog.html', {'form': form, 'posts': posts})
+
+def delete_post(request, post_id):
+    post = get_object_or_404(BlogPost, id=post_id)
+    if request.user == post.author:
+        post.delete()
+    return redirect('blog')
 
 def about(request):
     return render(request, 'about.html')
