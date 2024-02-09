@@ -1,6 +1,4 @@
 from django.db import models
-from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 
@@ -51,7 +49,6 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=50)
     delivery_address = models.TextField()
     delivery_status = models.CharField(max_length=50, default='pending')
-
     def __str__(self):
         return f'Order {self.id}'
 
@@ -60,10 +57,6 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-
-
-
-## CART czy może zamienimy Order item na Card ale na jednen model CART ??
 
 
     def total_price(self):
