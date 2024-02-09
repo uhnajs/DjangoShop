@@ -1,12 +1,9 @@
 import requests
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views import View
-from sklep.models import Product
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
-from django.db.models import Count
 import random
 from .models import Product
 from django.views.generic import TemplateView
@@ -14,7 +11,6 @@ from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from .cart import add, remove, iterate, cart_total_price
 from django.urls import reverse
-
 
 class HomeView(TemplateView):
     template_name = 'index.html'
@@ -95,19 +91,16 @@ class FAQView(TemplateView):
 def search_results(request):
     query = request.GET.get('q')
     products = Product.objects.none()
-
     if query:
         query = query.strip()
         if query:
             products = Product.objects.filter(name__icontains=query)
-
     return render(request, 'search_results.html', {'products': products, 'query': query})
 
 
 @login_required
 def add_review(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -116,15 +109,12 @@ def add_review(request, product_id):
             review.author = request.user
             review.save()
             return redirect('product_detail', pk=product.pk)
-
     else:
         form = ReviewForm()
-
     return render(request, 'add_review.html', {'form': form})
 
 @login_required(login_url='login')
 def add_to_cart(request, product_id):
-    """Dodaj produkt do koszyka."""
     if request.method == 'POST':
         if request.user.is_authenticated:
             add(request, product_id)
@@ -143,15 +133,14 @@ def cart_detail(request):
 
 @login_required(login_url='login')
 def remove_from_cart(request, product_id, size):
-    """Usuń produkt z koszyka."""
     remove(request, product_id, size)
     return redirect('cart_detail')
+
 @login_required(login_url='login')
 def payment(request):
-    cart = iterate(request)  # Pobranie listy produktów w koszyku
+    cart = iterate(request)
     cart_total = cart_total_price(request)
 
-    # Obliczanie całkowitej kwoty dla każdego produktu
     for product in cart:
         product.total = float(product.price) * int(product.quantity)
 
